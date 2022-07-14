@@ -1,0 +1,84 @@
+*:focus {
+    outline: none;
+}
+
+input.transcript_field {
+    border: 1px solid grey;
+    background-color: white;
+    border-radius: 5px;
+    height: 40px;
+    /* margin-left: 10px; */
+    width: 425px;
+    display: block;
+}
+
+input.transcript_card:focus {
+    outline: none;
+}
+
+select {
+    border: 1px solid grey;
+    background-color: white;
+    border-radius: 5px;
+    height: 40px;
+    width: 425px;
+    display: block;
+    /* margin-left: 10px; */
+}
+
+.transcript_card {
+    border-radius: 10px;
+    border: none;
+}
+
+.p-1 {
+    color: rgb(95, 203, 102);
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.p-2 {
+    color: rgb(245, 69, 69);
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.h-1 {
+    color: rgb(0, 32, 96);
+    font-weight: bold;
+    margin: 0;
+
+}
+
+.save-btn {
+    color: white;
+    background-color: rgb(0, 32, 96);
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100px;
+    margin-top: 20px;
+}
+
+label {
+    display: inline-block;
+}
+
+.table_input {
+    border: none;
+    border-bottom: 1px solid grey;
+}
+
+@media only screen and (max-width: 768px) {
+    input.transcript_field {
+        width: auto;
+    }
+
+    select {
+        width: auto;
+    }
+}
