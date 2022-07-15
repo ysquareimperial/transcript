@@ -11,10 +11,7 @@ export default function Transcript() {
         marks: '',
         points: '',
         grade: ''
-
     }
-
-
 
     const [transcriptForm, setTranscriptForm] = useState(form)
     const handleChange = ({ target: { name, value } }) => {
@@ -23,15 +20,69 @@ export default function Transcript() {
     const submit = () => {
         console.log(transcriptForm)
     }
+
+
     const tableData = [
         {
             code: 'EDU 11',
             title: 'History of Education in Nigeria',
-            marks: <input className='table_input' type='text' name='marks' value={transcriptForm.marks} onChange={handleChange} />,
-            points: <input className='table_input' type='text' name='points' value={transcriptForm.points} onChange={handleChange} />,
-            grade: <input className='table_input' type='text' name='grade' value={transcriptForm.grade} onChange={handleChange} />,
+            marks: 20,
+            points: 30,
+            grade: 40,
+        },
+        {
+            code: 'EDU 112',
+            title: 'History of Education in Nigeria',
+            marks: 20,
+            points: 30,
+            grade: 40,
+        },
+        {
+            code: 'EDU 113',
+            title: 'History of Education in Nigeria',
+            marks: 20,
+            points: 30,
+            grade: 40,
+        }, {
+            code: 'EDU 141',
+            title: 'History of Education in Nigeria',
+            marks: 20,
+            points: 30,
+            grade: 40,
+        }, {
+            code: 'EDU 151',
+            title: 'History of Education in Nigeria',
+            marks: 20,
+            points: 30,
+            grade: 40,
+        }, {
+            code: 'EDU 116',
+            title: 'History of Education in Nigeria',
+            marks: 20,
+            points: 30,
+            grade: 40,
+        }, {
+            code: 'EDU 117',
+            title: 'History of Education in Nigeria',
+            marks: 20,
+            points: 30,
+            grade: 40,
         },
     ]
+    const [scoresList, setScoresList] = useState(tableData)
+    const handleInputChange = (name, value, code) => {
+        let arr = []
+        scoresList.forEach(item => {
+            if (item.code === code) {
+                arr.push({ ...item, [name]: value })
+            }
+            else {
+                arr.push(item)
+            }
+        })
+
+        setScoresList(arr)
+    }
     return (
         <div className='mt-5 mb-5'>
             <Container>
@@ -92,13 +143,13 @@ export default function Transcript() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {tableData.map((item, index) => (
+                                    {scoresList.map((item, index) => (
                                         <tr>
                                             <td>{item.code}</td>
                                             <td>{item.title}</td>
-                                            <td>{item.marks}</td>
-                                            <td>{item.points}</td>
-                                            <td>{item.grade}</td>
+                                            <td><input className='table_input' type='text' name='marks' value={item.marks} onChange={({ target: { value } }) => handleInputChange('marks', value, item.code)} /></td>
+                                            <td><input className='table_input' type='text' name='points' value={item.points} onChange={({ target: { value } }) => handleInputChange('points', value, item.code)} /></td>
+                                            <td><input className='table_input' type='text' name='grades' value={item.grades} onChange={({ target: { value } }) => handleInputChange('grades', value, item.code)} /></td>
                                         </tr>
                                     ))}
 
