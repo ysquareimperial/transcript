@@ -63,7 +63,7 @@ export default function Transcript() {
             grade: '',
         }, {
             code: 'EDU 117',
-            title: 'History of Education in Nigeria',
+            title: 'Hiistory of Education in Nigeria',
             marks: '',
             points: '',
             grade: '',
