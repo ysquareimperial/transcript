@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Card, Col, Container, Row, Table } from 'reactstrap'
+import { apiURL, _fetchApi } from './helper/helper';
 import './Transcript.css'
 export default function Transcript() {
     let form =
@@ -8,20 +9,62 @@ export default function Transcript() {
         admission_number: '',
         combination: '',
         semester: '',
+
+    }
+    const [results,setResults]=useState([])
+    const init_course = {
         marks: '',
         points: '',
-        grade: ''
-
-    }
-
-
+        grade: '',
+        index:0,
+     }
+     const [newCourse,setNewCourse]=useState([])
+    const getId = () => {
+       
+        _fetchApi(
+          `${apiURL}/api/courses/all?_query_type=select`,
+          (data) => {
+           
+              setResults(data.results);
+            //   setCrs_list(data.results);
+             
+          },
+          (err) => console.log(err)
+        );
+      };
+    useEffect(() => {
+    //   getIds();
+      getId();
+    }, []);
 
     const [transcriptForm, setTranscriptForm] = useState(form)
+    const [current,setCurrent]=useState()
+    let [crs_list, setCrs_list] = useState([]);
+
+    const changeSemester =  useCallback((semester)=>{
+        if(semester){
+            setCrs_list(results.filter(crs=>crs.semester.toLowerCase()=== semester.toLowerCase())); 
+        }
+    })
+
     const handleChange = ({ target: { name, value } }) => {
         setTranscriptForm((prev) => ({ ...prev, [name]: value }))
+        if(name==='semester'){
+            
+            changeSemester(value)
+        }
     }
+    const handleNewChange = ({ target: { name, value } }) => {
+        setNewCourse((prev) => ({ ...prev, [name]: value }))
+        setCurrent(p=>({
+        ...p,
+       remarks:""
+      }))
+    }
+
+     
     const submit = () => {
-        console.log(transcriptForm)
+        console.log(transcriptForm,crs_list)
     }
     const tableData = [
         {
@@ -35,6 +78,7 @@ export default function Transcript() {
     return (
         <div className='mt-5 mb-5'>
             <Container>
+             {JSON.stringify(current)}
                 <Row>
                     <Col md={1}></Col>
                     <Col md={10}>
@@ -92,13 +136,13 @@ export default function Transcript() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {tableData.map((item, index) => (
+                                    {crs_list.map((item, index) => (
                                         <tr>
                                             <td>{item.code}</td>
-                                            <td>{item.title}</td>
-                                            <td>{item.marks}</td>
-                                            <td>{item.points}</td>
-                                            <td>{item.grade}</td>
+                                            <td>{item.tittle}</td>
+                                            <td><input className='table_input' onFocus={()=>setCurrent(item)} type='text' name='marks' value={newCourse.marks} onChange={handleNewChange} /></td>
+                                            <td><input className='table_input' type='text' name='points' value={newCourse.points} onChange={handleNewChange} />,</td>
+                                            <td><input className='table_input' type='text' name='grade' value={newCourse.grade} onChange={handleNewChange} /></td>
                                         </tr>
                                     ))}
 
