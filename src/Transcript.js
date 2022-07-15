@@ -1,28 +1,24 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Card, Col, Container, Row, Table } from 'reactstrap'
-import { apiURL, _fetchApi } from './helper/helper';
+import { apiURL, _fetchApi, _postApi } from './helper/helper';
 import './Transcript.css'
 export default function Transcript() {
     let form =
     {
-        student_name: '',
-        admission_number: '',
+        name: '',
+        admission_no: '',
         combination: '',
         semester: '',
-
+       courses:[]
     }
     const [results,setResults]=useState([])
-    const init_course = {
-        marks: '',
-        points: '',
-        grade: '',
-        index:0,
-     }
-     const [newCourse,setNewCourse]=useState([])
+
+    
+    const [newCourse,setNewCourse]=useState([])
     const getId = () => {
        
         _fetchApi(
-          `${apiURL}/api/courses/all`,
+          `${apiURL}/api/courses/all?_query_type=select`,
           (data) => {
            
               setResults(data.results);
@@ -38,6 +34,16 @@ export default function Transcript() {
     }, []);
 
     const [transcriptForm, setTranscriptForm] = useState(form)
+    const handleReset =()=>{
+        setTranscriptForm(p=>({
+          ...p,
+          name: '',
+          admission_no: '',
+          combination: '',
+          semester: '',
+         courses:[]
+        }))
+      }
     
     let [crs_list, setCrs_list] = useState([]);
 
@@ -58,24 +64,88 @@ export default function Transcript() {
         setNewCourse((prev) => ({ ...prev, [name]: value }))
        
     }
+    const handleInputChange = (name, value, code) => {
+        let arr = []
+        crs_list.forEach(item => {
+            if (item.code === code) {
+                arr.push({ ...item, [name]: value })
+            }
+            else {
+                arr.push(item)
+            }
+        })
 
+        setCrs_list(arr)
+    }
      
     const submit = () => {
+        transcriptForm.courses = crs_list
+        _postApi(
+            `${apiURL}/api/student?_query_type=create`,
+            transcriptForm,
+            (data) => {
+              if (data.success) {
+                alert("sucess");
+                
+              }
+            },
+          )
+          handleReset()
+          setCrs_list([])
+          alert("sucess")
         console.log(transcriptForm,crs_list)
     }
     const tableData = [
         {
             code: 'EDU 11',
             title: 'History of Education in Nigeria',
-            marks: <input className='table_input' type='text' name='marks' value={transcriptForm.marks} onChange={handleChange} />,
-            points: <input className='table_input' type='text' name='points' value={transcriptForm.points} onChange={handleChange} />,
-            grade: <input className='table_input' type='text' name='grade' value={transcriptForm.grade} onChange={handleChange} />,
+            marks: '',
+            points: '',
+            grade: '',
+        },
+        {
+            code: 'EDU 112',
+            title: 'History of Education in Nigeria',
+            marks: '',
+            points: '',
+            grade: '',
+        },
+        {
+            code: 'EDU 113',
+            title: 'History of Education in Nigeria',
+            marks: '',
+            points: '',
+            grade: '',
+        }, {
+            code: 'EDU 141',
+            title: 'History of Education in Nigeria',
+            marks: '',
+            points: '',
+            grade: '',
+        }, {
+            code: 'EDU 151',
+            title: 'History of Education in Nigeria',
+            marks: '',
+            points: '',
+            grade: '',
+        }, {
+            code: 'EDU 116',
+            title: 'History of Education in Nigeria',
+            marks: '',
+            points: '',
+            grade: '',
+        }, {
+            code: 'EDU 117',
+            title: 'Hiistory of Education in Nigeria',
+            marks: '',
+            points: '',
+            grade: '',
         },
     ]
     return (
         <div className='mt-5 mb-5'>
             <Container>
-             
+             {/* {JSON.stringify(crs_list)} */}
                 <Row>
                     <Col md={1}></Col>
                     <Col md={10}>
@@ -89,13 +159,13 @@ export default function Transcript() {
                                 <Col lg={6} md={6} sm={6} xs={6}>
                                     <label>
                                         Student:
-                                        <input className='transcript_field' name='student_name' type='text' value={transcriptForm.student_name} onChange={handleChange} />
+                                        <input className='transcript_field' name='name' type='text' value={transcriptForm.name} onChange={handleChange} />
                                     </label>
                                 </Col>
                                 <Col lg={6} md={6} sm={6} xs={6}>
                                     <label>
                                         Admission Number:
-                                        <input className='transcript_field' name='admission_number' type='text' value={transcriptForm.admission_number} onChange={handleChange} />
+                                        <input className='transcript_field' name='admission_no' type='text' value={transcriptForm.admission_no} onChange={handleChange} />
                                     </label>
                                 </Col>
                             </Row>
@@ -137,9 +207,9 @@ export default function Transcript() {
                                         <tr>
                                             <td>{item.code}</td>
                                             <td>{item.tittle}</td>
-                                            <td><input className='table_input' type='text' name='marks' value={newCourse.marks} onChange={handleNewChange} /></td>
-                                            <td><input className='table_input' type='text' name='points' value={newCourse.points} onChange={handleNewChange} />,</td>
-                                            <td><input className='table_input' type='text' name='grade' value={newCourse.grade} onChange={handleNewChange} /></td>
+                                            <td><input className='table_input' type='text' name='marks' value={item.marks} onChange={({ target: { value } }) => handleInputChange('marks', value, item.code)} /></td>
+                                            <td><input className='table_input' type='number' name='point' value={item.point} onChange={({ target: { value } }) => handleInputChange('point', value, item.code)} /></td>
+                                            <td><input className='table_input' type='text' name='grade' value={item.grade} onChange={({ target: { value } }) => handleInputChange('grade', value, item.code)} /></td>
                                         </tr>
                                     ))}
 
