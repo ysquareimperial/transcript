@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Card, Col, Container, Row, Table } from 'reactstrap'
 import './Transcript.css'
+import logo from './images/logo.jpeg'
 export default function Transcript() {
     let form =
     {
@@ -87,9 +88,11 @@ export default function Transcript() {
         <div className='mt-5 mb-5'>
             <Container>
                 <Row>
-                    <Col md={1}></Col>
+                    <Col md={1}>
+                    </Col>
                     <Col md={10}>
                         <div className='text-center'>
+                        <img src={logo} alt='' style={{ width: 100, display: 'inline-block' }} />
                             <h3 className='h-1'>UNITY COLLEGE OF EDUCATION KANO STATE</h3>
                             <p className='p-1'>Accredited NCE awarding College in Nigeria</p>
                             <p className='p-2'>Student’s Transcript</p>
