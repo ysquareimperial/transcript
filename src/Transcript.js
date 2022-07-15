@@ -22,7 +22,7 @@ export default function Transcript() {
     const getId = () => {
        
         _fetchApi(
-          `${apiURL}/api/courses/all?_query_type=select`,
+          `${apiURL}/api/courses/all`,
           (data) => {
            
               setResults(data.results);
@@ -38,7 +38,7 @@ export default function Transcript() {
     }, []);
 
     const [transcriptForm, setTranscriptForm] = useState(form)
-    const [current,setCurrent]=useState()
+    
     let [crs_list, setCrs_list] = useState([]);
 
     const changeSemester =  useCallback((semester)=>{
@@ -56,10 +56,7 @@ export default function Transcript() {
     }
     const handleNewChange = ({ target: { name, value } }) => {
         setNewCourse((prev) => ({ ...prev, [name]: value }))
-        setCurrent(p=>({
-        ...p,
-       remarks:""
-      }))
+       
     }
 
      
@@ -78,7 +75,7 @@ export default function Transcript() {
     return (
         <div className='mt-5 mb-5'>
             <Container>
-             {JSON.stringify(current)}
+             
                 <Row>
                     <Col md={1}></Col>
                     <Col md={10}>
@@ -140,7 +137,7 @@ export default function Transcript() {
                                         <tr>
                                             <td>{item.code}</td>
                                             <td>{item.tittle}</td>
-                                            <td><input className='table_input' onFocus={()=>setCurrent(item)} type='text' name='marks' value={newCourse.marks} onChange={handleNewChange} /></td>
+                                            <td><input className='table_input' type='text' name='marks' value={newCourse.marks} onChange={handleNewChange} /></td>
                                             <td><input className='table_input' type='text' name='points' value={newCourse.points} onChange={handleNewChange} />,</td>
                                             <td><input className='table_input' type='text' name='grade' value={newCourse.grade} onChange={handleNewChange} /></td>
                                         </tr>
