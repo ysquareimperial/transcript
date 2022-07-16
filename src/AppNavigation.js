@@ -2,6 +2,7 @@ import { useRoutes } from "react-router-dom";
 import AppIndex from "./AppIndex";
 import PrintTranscript from "./PrintTranscript";
 import Transcript from "./Transcript";
+import ViewPDF from "./ViewPDF";
 
 
 function AppNavigation() {
@@ -13,6 +14,10 @@ function AppNavigation() {
             {
                 path: "/print-transcript",
                 element: <PrintTranscript />,
+            },
+            {
+                path: "/view-pdf",
+                element: <ViewPDF />,
             },
             ]
         },

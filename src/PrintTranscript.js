@@ -7,6 +7,7 @@ import edit from './images/edit.png'
 import print from './images/print.png'
 import { apiURL, _fetchApi, _postApi } from './helper/helper'
 import TranscriptPDF from './TranscriptPDF.JS'
+import {PDFViewer} from "@react-pdf/renderer"
 export default function PrintTranscript() {
 const [resulting,setResulting] = useState([])
     const navigate = useNavigate()
@@ -77,7 +78,7 @@ const [resulting,setResulting] = useState([])
                     <td>{item.name}</td>
                     <td>{item.combination}</td>
                     <td style={{ cursor: 'pointer' }} onClick={() => navigate('/')}><img src={edit} alt='' style={{ width: 28, float: 'right' }} /></td>
-                    <td style={{ cursor: 'pointer' }} ><img src={print} alt='' style={{ width: 28, float: 'right' }} /></td>
+                    <td style={{ cursor: 'pointer' }} onClick={()=>navigate("/view-pdf")}><img src={print} alt='' style={{ width: 28, float: 'right' }} /></td>
                 </tr>
             );
 
@@ -85,7 +86,7 @@ const [resulting,setResulting] = useState([])
     return (
         <div className='mt-5 mb-5'>
             {JSON.stringify(resulting)}
-            <TranscriptPDF />
+            
             <Container>
                 <Row>
                     <Col md={1}>
