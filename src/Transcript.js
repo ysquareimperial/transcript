@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Card, Col, Container, Row, Table } from 'reactstrap'
 import './Transcript.css'
-import logo from './images/logo.jpeg'   
+import logo from './images/logo.jpeg'
 import { useNavigate } from 'react-router-dom'
 export default function Transcript() {
 
@@ -57,7 +57,7 @@ export default function Transcript() {
         setScoresList(arr)
     }
     return (
-        <div className='mb-5' style={{marginTop:'100px'}}>
+        <div className='mb-5' style={{ marginTop: '100px' }}>
             <Container>
                 <Row>
                     <Col md={1}>
