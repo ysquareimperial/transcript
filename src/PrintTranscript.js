@@ -5,10 +5,28 @@ import logo from './images/logo.jpeg'
 import { useNavigate } from 'react-router-dom'
 import edit from './images/edit.png'
 import print from './images/print.png'
+import { apiURL, _fetchApi, _postApi } from './helper/helper'
+import TranscriptPDF from './TranscriptPDF.JS'
+import {PDFViewer} from "@react-pdf/renderer"
 export default function PrintTranscript() {
-
+const [resulting,setResulting] = useState([])
     const navigate = useNavigate()
-
+    const getIds =() => {
+        _fetchApi(
+            `${apiURL}/api/getStudent`,
+            (data) => {
+             
+                setResulting(data.results);
+              //   setCrs_list(data.results);
+               
+            },
+            (err) => console.log(err)
+          );
+      };
+      useEffect(() => {
+       
+          getIds();
+        }, []);
     const tableData = [
         {
             admNo: 'EDU//112',
@@ -46,27 +64,29 @@ export default function PrintTranscript() {
         setSearch({ [name]: value });
     };
     let rows = [];
-    result &&
-        result.forEach((item, index) => {
+    resulting &&
+    resulting.forEach((item, index) => {
             if (
-                item.admNo.toLowerCase().indexOf(state.search.toLowerCase()) ===
+                item.name.toLowerCase().indexOf(state.search.toLowerCase()) ===
                 -1
             ) {
                 return;
             }
             rows.push(
                 <tr key={index}>
-                    <th>{item.admNo}</th>
-                    <td>{item.fullName}</td>
+                    <th>{item.admission_no}</th>
+                    <td>{item.name}</td>
                     <td>{item.combination}</td>
                     <td style={{ cursor: 'pointer' }} onClick={() => navigate('/')}><img src={edit} alt='' style={{ width: 28, float: 'right' }} /></td>
-                    <td style={{ cursor: 'pointer' }}><img src={print} alt='' style={{ width: 28, float: 'right' }} /></td>
+                    <td style={{ cursor: 'pointer' }} onClick={()=>navigate("/view-pdf")}><img src={print} alt='' style={{ width: 28, float: 'right' }} /></td>
                 </tr>
             );
 
         });
     return (
         <div className='mt-5 mb-5'>
+            {JSON.stringify(resulting)}
+            
             <Container>
                 <Row>
                     <Col md={1}>
