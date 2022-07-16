@@ -73,9 +73,6 @@ export default function PrintTranscript() {
                     </Col>
                     <Col md={10}>
                         <div className='text-center'>
-                            <img src={logo} alt='' style={{ width: 100, display: 'inline-block' }} />
-                            <h3 className='h-1'>UNITY COLLEGE OF EDUCATION KANO STATE</h3>
-                            <p className='p-1'>Accredited NCE awarding College in Nigeria</p>
                             <p className='p-2'>Student’s Transcript</p>
                         </div>
                         <button className='print-btn mb-3' onClick={() => navigate('/')}>Go Back</button>

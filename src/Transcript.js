@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { Card, Col, Container, Row, Table } from 'reactstrap'
 import { apiURL, _fetchApi, _postApi } from './helper/helper';
 import './Transcript.css'
-import logo from './images/logo.jpeg'
+import logo from './images/logo.jpeg'   
 import { useNavigate } from 'react-router-dom'
 export default function Transcript() {
 
@@ -114,53 +114,19 @@ export default function Transcript() {
             points: '',
             grade: '',
         },
-        {
-            code: 'EDU 113',
-            title: 'History of Education in Nigeria',
-            marks: '',
-            points: '',
-            grade: '',
-        }, {
-            code: 'EDU 141',
-            title: 'History of Education in Nigeria',
-            marks: '',
-            points: '',
-            grade: '',
-        }, {
-            code: 'EDU 151',
-            title: 'History of Education in Nigeria',
-            marks: '',
-            points: '',
-            grade: '',
-        }, {
-            code: 'EDU 116',
-            title: 'History of Education in Nigeria',
-            marks: '',
-            points: '',
-            grade: '',
-        }, {
-            code: 'EDU 117',
-            title: 'Hiistory of Education in Nigeria',
-            marks: '',
-            points: '',
-            grade: '',
-        },
     ]
     return (
-        <div className='mt-5 mb-5'>
+        <div className='mb-5' style={{marginTop:'100px'}}>
             <Container>
              {/* {JSON.stringify(crs_list)} */}
                 <Row>
                     <Col md={1}>
                     </Col>
                     <Col md={10}>
-                        <div className='text-center'>
-                            <img src={logo} alt='' style={{ width: 100, display: 'inline-block' }} />
-                            <h3 className='h-1'>UNITY COLLEGE OF EDUCATION KANO STATE</h3>
-                            <p className='p-1'>Accredited NCE awarding College in Nigeria</p>
+                        <div className=''>
                             <p className='p-2'>Student’s Transcript</p>
                         </div>
-                        <button className='print-btn mb-3' onClick={() => navigate('/print-transcript')}>Print/Edit Transcript</button>
+                        {/* <button className='print-btn mb-3' onClick={() => navigate('/print-transcript')}>Print/Edit Transcript</button> */}
                         <Card className='shadow p-4  transcript-card' style={{ borderRadius: 10 }}>
                             <Row>
                                 <Col lg={6} md={6} sm={6} xs={6}>
