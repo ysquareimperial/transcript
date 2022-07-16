@@ -1,30 +1,162 @@
 import React from 'react'
 import { Page, Text, Image, Document, StyleSheet, View, Font } from '@react-pdf/renderer'
-import schoolLogo from '../../images/sRecord.png'
+// import schoolLogo from '../../images/sRecord.png'
 import { Col, Row } from 'reactstrap'
-import oswald from '../../Oswald/oswald.ttf'
-Font.register({ family: 'oswald', src: oswald });
+import oswald from './Oswald/oswald.ttf'
+Font.register({
+    family: 'Oswald',
+    src: 'https://fonts.gstatic.com/s/oswald/v13/Y_TKV6o8WovbUd3m_X9aAA.ttf'
+});
+const BORDER_COLOR = "#000";
+const BORDER_STYLE = "solid";
+const COL1_WIDTH = 9.99;
+const COL2_WIDTH = 38;
+const COL3_WIDTH = 10;
+const COLN_WIDTH = (100 - COL2_WIDTH - COL3_WIDTH) / 3;
 const styles = StyleSheet.create({
+
     body: {
         paddingTop: 35,
         paddingBottom: 65,
-        paddingHorizontal: 35
+        paddingHorizontal: 35,
     },
     title: {
         fontSize: 24,
         textAlign: 'center',
+        fontFamily: 'Oswald',
+        color: "blue",
+        fontWeight: "bold"
+
     },
-    text: {
-        maargin: 12,
-        fontSize: 14,
-        textAlign: 'justify',
-        fontFamily: 'Times-Roman',
-        border: '1px black solid',
-        padding: 2
+    table: {
+        display: "table",
+        width: "auto",
+        borderStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR,
+        borderWidth: 1,
+        borderRightWidth: 0,
+        borderBottomWidth: 0,
+        marginTop: "10px"
     },
+    tableRow: {
+        margin: "auto",
+        flexDirection: "row",
+    },
+    tableCol1Header: {
+        width: COL1_WIDTH + "%",
+        borderStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR,
+        borderBottomColor: "#000",
+        borderWidth: 1,
+        borderLeftWidth: 0,
+        borderTopWidth: 0,
+    },
+    tableCol2Header: {
+        width: COL2_WIDTH + "%",
+        borderStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR,
+        borderBottomColor: "#000",
+        borderWidth: 1,
+        borderLeftWidth: 0,
+        borderTopWidth: 0,
+    },
+    tableCol3Header: {
+        width: COL3_WIDTH + "%",
+        borderStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR,
+        borderBottomColor: "#000",
+        borderWidth: 1,
+        borderLeftWidth: 0,
+        borderTopWidth: 0,
+    },
+    tableColHeader: {
+        width: COLN_WIDTH + "%",
+        borderStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR,
+        borderBottomColor: "#000",
+        borderWidth: 1,
+        borderLeftWidth: 0,
+        borderTopWidth: 0,
+    },
+    tableCol1: {
+        width: COL1_WIDTH + "%",
+        borderStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR,
+        borderWidth: 1,
+        borderLeftWidth: 0,
+        borderTopWidth: 0,
+    },
+    tableCol2: {
+        width: COL2_WIDTH + "%",
+        borderStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR,
+        borderRadius: 2,
+        paddingBottom: 8,
+        borderWidth: 1,
+        borderLeftWidth: 0,
+        borderTopWidth: 0,
+    },
+    tableCol3: {
+        width: COL3_WIDTH + "%",
+        borderStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR,
+        borderRadius: 2,
+        paddingBottom: 8,
+        borderWidth: 1,
+        borderLeftWidth: 0,
+        borderTopWidth: 0,
+    },
+    tableCol: {
+        width: COLN_WIDTH + "%",
+        borderStyle: BORDER_STYLE,
+        borderColor: BORDER_COLOR,
+        borderWidth: 1,
+        borderLeftWidth: 0,
+        borderTopWidth: 0,
+    },
+    tableCellHeader: {
+        margin: 5,
+        fontSize: 12,
+        fontWeight: "bold",
+    },
+    tableCell: {
+        margin: 5,
+        fontSize: 10,
+    },
+    tableCell1: {
+        marginLeft: 10,
+        marginRight: 10,
+        fontSize: 10,
+    },
+    line: {
+        borderBottom: "2px solid black"
+
+    },
+    lex: {
+        display: "flex",
+        justifyContent: "space-around",
+    },
+    stud: {
+        textAlign: "center",
+        color: "red",
+        fontSize: "14"
+    },
+
+    author: {
+        fontSize: 12,
+        textAlign: 'center',
+        marginBottom: 10,
+        color: "green"
+    },
+    subtitle: {
+        fontSize: 18,
+        margin: 12,
+        fontFamily: 'Oswald'
+    },
+
     image: {
         marginVertical: 15,
-        marginHorizontal: 100
+        marginHorizontal: 100,
     },
     header: {
         fontSize: 12,
@@ -39,71 +171,156 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         textAlign: 'center',
-        color: 'grey'
+        color: 'grey',
     },
-    name: {
-        fontWeight: 'bold',
-        fontSize: 25,
-        fontFamily: 'oswald',
-        textAlign: 'center'
-    }
+});
 
-})
-
-const reportCardInfo = [
-    {
-        schoolName: 'KANO CAPITAL BOYS SECONDARY SCHOOL',
-        image: schoolLogo,
-        schoolAddress: 'OFF ALU AVENUE BEHIND REACE COURSE, P.O. BOX 1059, KANO',
-        reportTitle: 'TERMINAL REPORT',
-        studentName: 'Munir Ibrahim Hassan',
-        studentClass: 'JSS 1',
-        noInClass: '74',
-        term: '1st Terms',
-        admissionNumber: 30
-    }
-]
-const TranscriptPDF = () => {
+const ReportCard = () => {
     return (
         <>
             <Document>
-                {reportCardInfo.map((item, index) => (
-                    <Page size='A4' style={styles.body}>
+                <Page style={styles.body}>
 
-                        {/* <Image style={styles.image} src={item.image} />  */}
+                    <Text style={styles.title}>UNITY COLLEGE OF EDUCATION KANO STATE</Text>
+                    <Text style={styles.author}>Accredited NCE awarding College in Nigeria</Text>
+                    <Text style={styles.line}></Text>
+                    <Text style={styles.stud}>student's transcript</Text>
+                    <Text style={styles.line}></Text>
+                    <View style={styles.lex}>
 
-                        <Text style={styles.name} >{item.schoolName}</Text>
-                        <Text style={styles.address} >{item.schoolAddress}</Text>
-                        <Text style={styles.title} >{item.reportTitle}</Text>
+                        <View style={{marginTop:20}}>
+                            <View style={{ display: 'flex', flexDirection: 'row', }}>
+                                <View style={{ width: "50%" }}>
+                                    <Text style={{ fontSize: '14px' }}>Name:
 
-                        <Text style={styles.header}>Hello</Text>
-                        <Text style={styles.text}>
-                            The lion (Panthera leo) is a large cat of the genus Panthera native to Africa and India.
-                            It has a muscular, broad-chested body, short, rounded head, round ears,
-                            and a hairy tuft at the end of its tail. It is sexually dimorphic; adult
-                            male lions are larger than females and have a prominent mane. It is a social
-                            species, forming groups called prides. A lion's pride consists of a few adult males,
-                            related females, and cubs. Groups of female lions usually hunt together, preying mostly on
-                            large ungulates. The lion is an apex and keystone predator; although some lions scavenge when
-                            opportunities occur and have been known to hunt humans, the species typically does not actively
-                            seek out and prey on humans.
-                            The lion (Panthera leo) is a large cat of the genus Panthera native to Africa and India.
-                            It has a muscular, broad-chested body, short, rounded head, round ears,
-                            and a hairy tuft at the end of its tail. It is sexually dimorphic; adult
-                            male lions are larger than females and have a prominent mane. It is a social
-                            species, forming groups called prides. A lion's pride consists of a few adult males,
-                            related females, and cubs. Groups of female lions usually hunt together, preying mostly on
-                            large ungulates. The lion is an apex and keystone predator; although some lions scavenge when
-                            opportunities occur and have been known to hunt humans, the species typically does not actively
-                            seek out and prey on humans.
+                                        <Text style={{ fontSize: "12px", marginLeft: 25 }}>Abdulsalam</Text>
+                                    </Text>
+                                </View>
+                                <View style={{ width: "50%" }}>
+                                    <Text style={{fontSize:'14px'}}>Admission No:
+                                    <Text style={{ fontSize: "12px" }}>master class</Text>
+                                    </Text>
+                                </View>
+                            </View>
+                        </View>
+                        <View style={{ marginTop: "10px" }}>
+                            <View style={{ display: 'flex', flexDirection: 'row', }}>
+                                <View style={{ width: "50%" }}>
+                                    <Text style={{fontSize:'14px'}}>Combination:
+                                        <Text style={{ fontSize: "12px" }}>Abdulsalam</Text>
+                                    </Text>
+                                </View>
+                                <View style={{ width: "50%" }}>
+                                    <Text style={{fontSize:'14px'}}>Semester:
 
-                        </Text>
-                        <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => `${pageNumber}/${totalPages}`} fixed />
-                    </Page>
-                ))}
+                                    <Text style={{ fontSize: "12px" }}>master class</Text>
+                                    </Text>
+                                </View>
+                            </View>
+                        </View>
+
+
+
+                    </View>
+                    <Text style={styles.line}></Text>
+
+                    <View style={styles.table}>
+
+                        <View style={styles.tableRow}>
+                            <View style={styles.tableCol3Header}>
+                                <Text style={[styles.tableCellHeader, { textAlign: "center" }]}>
+                                    CODE
+                                </Text>
+                            </View>
+                            <View style={styles.tableCol2}>
+                                <Text style={[styles.tableCellHeader, { textAlign: "center" }]}>
+                                    TITLE
+                                </Text>
+                            </View>
+                            <View style={styles.tableColHeader}>
+                                <Text style={[styles.tableCellHeader, { textAlign: "center" }]}>
+                                    MARKS
+                                </Text>
+                            </View>
+                            <View style={styles.tableColHeader}>
+                                <Text style={[styles.tableCellHeader, { textAlign: "center" }]}>
+                                    POINTS
+                                </Text>
+                            </View>
+                            <View style={styles.tableColHeader}>
+                                <Text style={[styles.tableCellHeader, { textAlign: "center" }]}>
+                                    POINTS
+                                </Text>
+                            </View>
+                        </View>
+
+                        <View style={styles.tableRow} >
+                            <View style={styles.tableCol3}>
+                                <Text style={[styles.tableCell, { textAlign: "center" }]}>
+                                    EDU 111
+                                </Text>
+                            </View>
+                            <View style={styles.tableCol2}>
+                                <Text style={styles.tableCell}>History of Education in Nigeria</Text>
+                            </View>
+
+                            <View style={styles.tableCol}>
+                                <Text style={[styles.tableCell, { textAlign: "center" }]}>
+                                    1bncbnfn
+                                </Text>
+                            </View>
+                            <View style={styles.tableCol}>
+                                <Text style={[styles.tableCell, { textAlign: "right" }]}>
+                                    2bhkjnb b
+                                </Text>
+                            </View>
+
+                            <View style={styles.tableCol}>
+                                <Text style={[styles.tableCell, { textAlign: "right" }]}>
+                                    jkkjjjkjkjkjk
+                                </Text>
+                            </View>
+                            {/* <View style={styles.tableCol}>
+<Text style={styles.tableCell}>{item.location_from}</Text>
+</View> */}
+                        </View>
+
+
+                    </View>
+
+                    <View>
+                        <View style={{ display: 'flex', flexDirection: 'row', marginTop: "50" }}>
+                            <View style={{ width: "50%" }}>
+                                <Text>________________</Text>
+                                <Text style={{ fontSize: "12px" }}>Central Examinations Officer	</Text>
+                            </View>
+                            <View style={{ width: "50%" }}>
+                                <Text>____________</Text>
+                                <Text style={{ fontSize: "12px" }}>Center Coordinator</Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={{ marginTop: "10" }}>
+                        <View style={{ display: 'flex', flexDirection: 'row', }}>
+                            <View style={{ width: "50%" }}>
+                                <Text>_____________</Text>
+                                <Text style={{ fontSize: "12px" }}>Director of Studies </Text>
+                            </View>
+
+                        </View>
+                    </View>
+                    <Text>
+
+
+                        <Text></Text>
+                    </Text>
+                    <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => (
+                        `${pageNumber} / ${totalPages}`
+                    )} fixed />
+                </Page>
             </Document>
         </>
     )
 }
-export default TranscriptPDF;
+export default ReportCard;
 

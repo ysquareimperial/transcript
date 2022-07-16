@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import edit from './images/edit.png'
 import print from './images/print.png'
 import { apiURL, _fetchApi, _postApi } from './helper/helper'
-import TranscriptPDF from './TranscriptPDF.JS'
+import TranscriptPDF from './TranscriptPDF.js'
 import {PDFViewer} from "@react-pdf/renderer"
 export default function PrintTranscript() {
 const [resulting,setResulting] = useState([])
