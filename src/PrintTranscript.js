@@ -128,7 +128,7 @@ const [resulting,setResulting] = useState([])
                                 </tbody>
                             </Table>
 
-                            <p className="text-center mt-5" style={{ color: 'red' }}> {rows.length === 0 ? <div>No student found</div> : null}</p>
+                            <p className="text-center mt-5" style={{ color: 'red' }}> {rows.length === 0 ? <span>No student found</span> : null}</p>
                         </Card>
                     </Col>
                     <Col md={1}></Col>

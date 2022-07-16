@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { Card, Col, Container, Row, Table } from 'reactstrap'
 import { apiURL, _fetchApi, _postApi } from './helper/helper';
 import './Transcript.css'
-import logo from './images/logo.jpeg'   
+import logo from './images/logo.jpeg'
 import { useNavigate } from 'react-router-dom'
 export default function Transcript() {
 
@@ -24,8 +24,14 @@ export default function Transcript() {
         _fetchApi(
           `${apiURL}/api/courses/all?_query_type=select`,
           (data) => {
-           
-              setResults(data.results);
+           if(data.success){
+            let arr =[]
+            data.results && data.results.forEach((item)=>{
+                arr.push({...item,point:'',grade:'',marks:""})
+            })
+            setResults(arr);
+           }
+              
             //   setCrs_list(data.results);
              
           },
@@ -68,18 +74,45 @@ export default function Transcript() {
         setNewCourse((prev) => ({ ...prev, [name]: value }))
        
     }
-    const handleInputChange = (name, value, code) => {
+    const handleInputChange = (value, name, index) => {
+        if(value.length && parseInt(value)>100){
+            alert("Marks would not be more than 100")
+        }else{
         let arr = []
-        crs_list.forEach(item => {
-            if (item.code === code) {
-                arr.push({ ...item, [name]: value })
+        crs_list.forEach((item,ind) => {
+            if (ind === index) {
+                let point =''
+                let grade =''
+                if(parseInt(value)>=70){
+                    point=5;
+                    grade='A'
+                }else if(parseInt(value)>=60 && parseInt(value)<70){
+                    point=4;
+                    grade='B'
+                }else if(parseInt(value)>=50 && parseInt(value)<60){
+                    point=3;
+                    grade='C'
+                }else if(parseInt(value)>=50 && parseInt(value)<60){
+                    point=3;
+                    grade='C'
+                }else if(parseInt(value)>=40 && parseInt(value)<50){
+                    point=2;
+                    grade='D'
+                }else if(parseInt(value)>=30 && parseInt(value)<40){
+                    point=1;
+                    grade='E'
+                }
+                else {
+                    point=0;
+                    grade='F'
+                }
+                arr.push({ ...item, [name]: value,point,grade })
             }
             else {
                 arr.push(item)
             }
         })
-
-        setCrs_list(arr)
+        setCrs_list(arr)}
     }
      
     const submit = () => {
@@ -116,7 +149,7 @@ export default function Transcript() {
         },
     ]
     return (
-        <div className='mb-5' style={{marginTop:'100px'}}>
+        <div className='mb-5' style={{ marginTop: '100px' }}>
             <Container>
              {/* {JSON.stringify(crs_list)} */}
                 <Row>
@@ -132,7 +165,7 @@ export default function Transcript() {
                                 <Col lg={6} md={6} sm={6} xs={6}>
                                     <label>
                                         Student:
-                                        <input className='transcript_field' name='name' type='text' value={transcriptForm.name} onChange={handleChange} />
+                                        <input  className='transcript_field' name='name' type='text' value={transcriptForm.name} onChange={handleChange} />
                                     </label>
                                 </Col>
                                 <Col lg={6} md={6} sm={6} xs={6}>
@@ -180,9 +213,9 @@ export default function Transcript() {
                                         <tr>
                                             <td>{item.code}</td>
                                             <td>{item.tittle}</td>
-                                            <td><input className='table_input' type='text' name='marks' value={item.marks} onChange={({ target: { value } }) => handleInputChange('marks', value, item.code)} /></td>
-                                            <td><input className='table_input' type='number' name='point' value={item.point} onChange={({ target: { value } }) => handleInputChange('point', value, item.code)} /></td>
-                                            <td><input className='table_input' type='text' name='grade' value={item.grade} onChange={({ target: { value } }) => handleInputChange('grade', value, item.code)} /></td>
+                                            <td><input className='table_input' type='number' name='marks' value={item.marks} onChange={({ target: { value ,name} }) => handleInputChange(value, name,index)} /></td>
+                                            <td>{item.point}</td>
+                                            <td>{item.grade}</td>
                                         </tr>
                                     ))}
 
